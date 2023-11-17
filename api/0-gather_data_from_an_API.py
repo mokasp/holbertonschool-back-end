@@ -3,22 +3,25 @@
 import requests
 import sys
 
+
 def main():
     """ gets the todo list and name of specific employee """
     arg = int(sys.argv[1])
     todo = []
     completed = []
-    t_response = requests.get('https://jsonplaceholder.typicode.com/todos').json()
-    u_response = requests.get('https://jsonplaceholder.typicode.com/users').json()
-    for user in u_response:
+    todo_r = requests.get('https://jsonplaceholder.typicode.com/todos').json()
+    user_r = requests.get('https://jsonplaceholder.typicode.com/users').json()
+    for user in user_r:
         if user['id'] == arg:
             name = user['name']
-    for item in t_response:
+    for item in todo_r:
         if item['userId'] == arg:
             todo.append(item)
             if item['completed'] is True:
                 completed.append(item['title'])
-    print(f'Employee {name} is done with tasks({len(completed)}/{len(todo)})')
+    done = len(completed)
+    all_ = len(todo)
+    print(f'Employee {name} is done with tasks({done}/{all_})')
     for item in completed:
         print(f'\t {item}')
 
