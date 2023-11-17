@@ -6,25 +6,20 @@ import sys
 
 def main(user_id):
     """ gets the todo list and name of specific employee """
+    url = 'https://jsonplaceholder.typicode.com'
     todo = []
     completed = []
-    todo_r = requests.get('https://jsonplaceholder.typicode.com/todos').json()
-    user_r = requests.get('https://jsonplaceholder.typicode.com/users').json()
-    for user in user_r:
-        if user['id'] == user_id:
-            n = user['name']
-            name = n.replace(" ", '\xA0')
+    todo_r = requests.get(f'{url}/todos').json()
+    user_r = requests.get(f'{url}/users/{user_id}').json()
+    name = user_r.get('name')
     for item in todo_r:
         if item['userId'] == user_id:
             todo.append(item)
             if item['completed'] is True:
-                title = item['title'].replace(" ", '\xA0')
-                completed.append(title)
+                completed.append(item['title'])
     done = len(completed)
     all_ = len(todo)
-    t = f'Employee {name} is done with tasks({done}/{all_})'
-    text = t.replace(" ", '\xA0')
-    print(text)
+    print(f'Employee {name} is done with tasks({done}/{all_}):')
     for item in completed:
         print(f'\t {item}')
 
