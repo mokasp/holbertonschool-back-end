@@ -15,10 +15,11 @@ def main(user_id):
     user_r = requests.get(f'{url}/users/{user_id}').json()
     for item in todo_r:
         temp = {}
-        temp.update({'task': item['title'], 'complete': item['completed']})
-        temp.update({'username': user_r['username']})
+        temp.update({"task": item['title'], "completed": item['completed']})
+        temp.update({"username": user_r['username']})
         temp_list.append(temp)
         user_dict.update({str(user_id): temp_list})
+    print(len(temp_list))
     with open(f'{user_id}.json', "w") as f:
         json.dump(user_dict, f)
 
