@@ -17,7 +17,7 @@ def main(user_id):
         csv_list.append(item['completed'])
         csv_list.append(item['title'])
         lists.append(csv_list)
-    with open('USER_ID.csv', 'w') as f:
+    with open(f'{user_id}.csv', 'w') as f:
         the_writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_ALL)
         for item in lists:
             the_writer.writerow(item)
