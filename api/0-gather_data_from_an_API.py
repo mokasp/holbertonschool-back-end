@@ -21,6 +21,10 @@ def main():
                 completed.append(item['title'])
     done = len(completed)
     all_ = len(todo)
+    with open('student_output', 'w') as f:
+        f.write(f'Employee {name} is done with tasks({done}/{all_})')
+        for item in completed:
+            f.write(f'\t {item}')
     print(f'Employee {name} is done with tasks({done}/{all_})')
     for item in completed:
         print(f'\t {item}')
