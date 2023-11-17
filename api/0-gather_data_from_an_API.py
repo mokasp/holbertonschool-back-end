@@ -12,15 +12,19 @@ def main(user_id):
     user_r = requests.get('https://jsonplaceholder.typicode.com/users').json()
     for user in user_r:
         if user['id'] == user_id:
-            name = user['name']
+            n = user['name']
+            name = n.replace(" ", '\xA0')
     for item in todo_r:
         if item['userId'] == user_id:
             todo.append(item)
             if item['completed'] is True:
-                completed.append(item['title'])
+                title = item['title'].replace(" ", '\xA0')
+                completed.append(title)
     done = len(completed)
     all_ = len(todo)
-    print(f'Employee {name} is done with tasks({done}/{all_})')
+    t = f'Employee {name} is done with tasks({done}/{all_})'
+    text = t.replace(" ", '\xA0')
+    print(text)
     for item in completed:
         print(f'\t {item}')
 
