@@ -8,13 +8,13 @@ import sys
 def main(user_id):
     """ gets the todo list items of a specific user and saves it to a
     JSON file """
-    temp = {}
     user_dict = {}
     temp_list = []
     url = 'https://jsonplaceholder.typicode.com'
     todo_r = requests.get(f'{url}/users/{user_id}/todos').json()
     user_r = requests.get(f'{url}/users/{user_id}').json()
     for item in todo_r:
+        temp = {}
         temp.update({'task': item['title'], 'complete': item['completed']})
         temp.update({'username': user_r['username']})
         temp_list.append(temp)
